@@ -1,0 +1,90 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '--save-dev',
+1 verbose cli   'lessc' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.38
+4 verbose node symlink /usr/bin/node
+5 warn package.json site@1.0.0 No description
+6 warn package.json site@1.0.0 No repository field.
+7 warn package.json site@1.0.0 No README data
+8 verbose readDependencies using package.json deps
+9 verbose cache add [ 'lessc', null ]
+10 verbose cache add name=undefined spec="lessc" args=["lessc",null]
+11 verbose parsed url { protocol: null,
+11 verbose parsed url   slashes: null,
+11 verbose parsed url   auth: null,
+11 verbose parsed url   host: null,
+11 verbose parsed url   port: null,
+11 verbose parsed url   hostname: null,
+11 verbose parsed url   hash: null,
+11 verbose parsed url   search: null,
+11 verbose parsed url   query: null,
+11 verbose parsed url   pathname: 'lessc',
+11 verbose parsed url   path: 'lessc',
+11 verbose parsed url   href: 'lessc' }
+12 silly lockFile 8b3a335c-lessc lessc
+13 verbose lock lessc /local-home/user18/.npm/8b3a335c-lessc.lock
+14 silly lockFile 8b3a335c-lessc lessc
+15 silly lockFile 8b3a335c-lessc lessc
+16 verbose addNamed [ 'lessc', '' ]
+17 verbose addNamed [ null, '*' ]
+18 silly lockFile a47c36bc-lessc lessc@
+19 verbose lock lessc@ /local-home/user18/.npm/a47c36bc-lessc.lock
+20 silly addNameRange { name: 'lessc', range: '*', hasData: false }
+21 verbose request where is /lessc
+22 verbose request registry https://registry.npmjs.org/
+23 verbose request id 751e868a378b10a6
+24 verbose url raw /lessc
+25 verbose url resolving [ 'https://registry.npmjs.org/', './lessc' ]
+26 verbose url resolved https://registry.npmjs.org/lessc
+27 verbose request where is https://registry.npmjs.org/lessc
+28 info trying registry request attempt 1 at 00:05:55
+29 http GET https://registry.npmjs.org/lessc
+30 http 404 https://registry.npmjs.org/lessc
+31 verbose headers { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+31 verbose headers   'content-type': 'application/json',
+31 verbose headers   'cache-control': 'max-age=0',
+31 verbose headers   'content-length': '51',
+31 verbose headers   'accept-ranges': 'bytes',
+31 verbose headers   date: 'Thu, 11 Jun 2015 21:06:06 GMT',
+31 verbose headers   via: '1.1 varnish',
+31 verbose headers   age: '0',
+31 verbose headers   connection: 'keep-alive',
+31 verbose headers   'x-served-by': 'cache-lcy1132-LCY',
+31 verbose headers   'x-cache': 'MISS',
+31 verbose headers   'x-cache-hits': '0',
+31 verbose headers   'x-timer': 'S1434056765.631810,VS0,VE680' }
+32 silly registry.get cb [ 404,
+32 silly registry.get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+32 silly registry.get     'content-type': 'application/json',
+32 silly registry.get     'cache-control': 'max-age=0',
+32 silly registry.get     'content-length': '51',
+32 silly registry.get     'accept-ranges': 'bytes',
+32 silly registry.get     date: 'Thu, 11 Jun 2015 21:06:06 GMT',
+32 silly registry.get     via: '1.1 varnish',
+32 silly registry.get     age: '0',
+32 silly registry.get     connection: 'keep-alive',
+32 silly registry.get     'x-served-by': 'cache-lcy1132-LCY',
+32 silly registry.get     'x-cache': 'MISS',
+32 silly registry.get     'x-cache-hits': '0',
+32 silly registry.get     'x-timer': 'S1434056765.631810,VS0,VE680' } ]
+33 silly lockFile a47c36bc-lessc lessc@
+34 silly lockFile a47c36bc-lessc lessc@
+35 error 404 404 Not Found: lessc
+35 error 404
+35 error 404 'lessc' is not in the npm registry.
+35 error 404 You should bug the author to publish it
+35 error 404 It was specified as a dependency of 'site'
+35 error 404
+35 error 404 Note that you can also install from a
+35 error 404 tarball, folder, or http url, or git url.
+36 error System Linux 3.13.0-53-generic
+37 error command "/usr/bin/node" "/usr/bin/npm" "install" "--save-dev" "lessc"
+38 error cwd /local-home/user18/repos/infernu/site
+39 error node -v v0.10.38
+40 error npm -v 1.4.28
+41 error code E404
+42 verbose exit [ 1, true ]
