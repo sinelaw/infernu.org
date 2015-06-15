@@ -149,7 +149,7 @@ features =
 typeSystemFeatures =
     [("Safety First",
       "Strong, expressive, static type system. No \"any\" type.",
-      ""),
+      "var x = 0;\nvar y = 'a' + x;"),
      ("Automatically Generic",
       "Infernu finds the most general type, and creates type parameters appropriately.",
       "function f(x) { return x; }"),
@@ -166,7 +166,7 @@ infernu rest =
         Left e -> show e
         Right res ->
             case getAnnotations <$> res of
-                Left e' -> showDoc $ pretty e'
+                Left e' -> showDoc $ plain $ pretty e'
                 Right [] -> show "There is nothing there."
                 Right xs -> concat . intersperse "\n" $ filterGen xs
                     where filterGen = catMaybes . map (\(Source (GenInfo g n, _), t) ->

@@ -4472,7 +4472,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   border-color: #080808;
 }
 .navbar-inverse .navbar-brand {
-  color: #d38312;
+  color: #d36302;
 }
 .navbar-inverse .navbar-brand:hover,
 .navbar-inverse .navbar-brand:focus {
@@ -4483,7 +4483,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #9d9d9d;
 }
 .navbar-inverse .navbar-nav > li > a {
-  color: #d38312;
+  color: #d36302;
 }
 .navbar-inverse .navbar-nav > li > a:hover,
 .navbar-inverse .navbar-nav > li > a:focus {
@@ -4530,7 +4530,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
     background-color: #080808;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
-    color: #d38312;
+    color: #d36302;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
@@ -4551,13 +4551,13 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   }
 }
 .navbar-inverse .navbar-link {
-  color: #d38312;
+  color: #d36302;
 }
 .navbar-inverse .navbar-link:hover {
   color: #ffffff;
 }
 .navbar-inverse .btn-link {
-  color: #d38312;
+  color: #d36302;
 }
 .navbar-inverse .btn-link:hover,
 .navbar-inverse .btn-link:focus {
@@ -4835,7 +4835,7 @@ a.badge:focus {
   padding: 30px 15px;
   margin-bottom: 30px;
   color: inherit;
-  background-color: rgba(211, 131, 18, 0.2);
+  background-color: rgba(211, 99, 2, 0.5);
 }
 .jumbotron h1,
 .jumbotron .h1 {
@@ -4847,7 +4847,7 @@ a.badge:focus {
   font-weight: 200;
 }
 .jumbotron > hr {
-  border-top-color: rgba(164, 102, 14, 0.2);
+  border-top-color: rgba(160, 75, 2, 0.5);
 }
 .container .jumbotron,
 .container-fluid .jumbotron {
@@ -6548,7 +6548,7 @@ button.close {
   }
 }
 html {
-  background: linear-gradient(180deg, rgba(211, 131, 18, 0.2) 10%, rgba(253, 244, 231, 0.2) 90%);
+  background: linear-gradient(180deg, rgba(211, 99, 2, 0.5) 0%, rgba(255, 233, 213, 0.5) 15%);
   /* W3C */
 }
 body {
