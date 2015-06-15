@@ -1,24 +1,27 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
-import           Data.Monoid (mappend)
+import           Data.Monoid                     (mappend)
 import           Hakyll
 
-import qualified Text.Pandoc as P
+import qualified Text.Pandoc                     as P
 
-import           Text.Highlighting.Kate (pygments, styleToCss)
-import Text.Pandoc.Error (handleError)
+import qualified Data.Text                       as Text
 import           Text.Blaze.Html.Renderer.String (renderHtml)
 import qualified Text.Blaze.Html5                as H
+import qualified Text.Blaze.Html5.Attributes     as HA
+import           Text.Highlighting.Kate          (pygments, styleToCss)
+import           Text.Pandoc.Error               (handleError)
 
-import           Infernu.Infer                (getAnnotations, minifyVars, runTypeInference)
-import           Infernu.Parse                (translate)
-import           Infernu.Types (GenInfo(..), Source(..))
+import           Infernu.Infer                   (getAnnotations, minifyVars, runTypeInference)
+import           Infernu.Parse                   (translate)
+import           Infernu.Types                   (GenInfo (..), Source (..))
 
-import           Data.List                   (intersperse)
-import           Data.Maybe                  (catMaybes)
-import Text.PrettyPrint.ANSI.Leijen (plain, displayS, renderPretty, Doc, Pretty(..))
-import qualified Language.ECMAScript3.Parser as ES3Parser
-import qualified Language.ECMAScript3.Syntax as ES3
+import           Data.Char                       (toLower)
+import           Data.List                       (intersperse)
+import           Data.Maybe                      (catMaybes)
+import qualified Language.ECMAScript3.Parser     as ES3Parser
+import qualified Language.ECMAScript3.Syntax     as ES3
+import           Text.PrettyPrint.ANSI.Leijen    (Doc, Pretty (..), displayS, plain, renderPretty)
 
 showWidth :: Int -> Doc -> String
 showWidth w x   = displayS (renderPretty 0.4 w x) ""
@@ -96,8 +99,8 @@ main = hakyllWith config $ do
 
             let indexCtx =
                     listField "posts" postCtx (return posts) `mappend`
-                    (constField "features" $ concatMap (\(t,d,c) -> featureItem t d c) features) `mappend`
-                    (constField "tsFeatures" $ concatMap (\(t,d,c) -> featureItem t d c) typeSystemFeatures) `mappend`
+                    (constField "features" $ concatMap (\ts -> renderHtml $ row $ map featureItem ts) $ chunks 2 features) `mappend`
+                    (constField "tsFeatures" $ concatMap (\ts -> renderHtml $ row $ map featureItem ts) $ chunks 2 typeSystemFeatures) `mappend`
 --                    constField "title" "Home"                `mappend`
                     defaultContext
 
@@ -122,21 +125,30 @@ markdownToHTML =
   P.writeHtml P.def {P.writerReferenceLinks = True, P.writerHighlight = True, P.writerHighlightStyle = pygments, P.writerHtml5 = True } .
   handleError . P.readMarkdown P.def
 
+row es = H.div H.! H.customAttribute "class" "row"
+         $ mconcat es
 --featureItem :: String -> String -> String -> H.Html
-featureItem title description code =
-    renderHtml
-    $ H.div H.! H.customAttribute "class" "col-sm-6"
+featureItem (title, description, code) =
+    H.div H.! H.customAttribute "class" "col-sm-6"
     $ do
         H.h1 $ H.string title
         H.p $ H.string description
         if code == ""
             then H.string ""
-            else H.div H.! H.customAttribute "class" "well well-sm"
+            else H.div -- H.! H.customAttribute "class" "well well-sm"
                  $ do
-                     H.h5 $ H.string "Example:"
+                     H.h5 $ H.string "Example source:"
                      markdownToHTML ("```javascript\n" ++ code ++ "\n```")
-                     H.h5 $ H.string "Inferred type:"
-                     markdownToHTML ("```javascript\n" ++ (infernu code) ++ "\n```")
+                     H.h5 $ H.string "Infernu output:"
+                     -- H.button (H.string "Infernu output")
+                     --     H.! H.customAttribute "data-toggle" "collapse"
+                     --     H.! H.customAttribute "data-target" "#collapseExample"
+                     markdownToHTML ("```javascript\n" ++ (shortError . lines $ infernu code) ++ "\n```")
+                         ---- H.! HA.id "collapseExample"
+    where shortError [] = ""
+          shortError [l] = l
+          shortError (l:ls) = strip $ unlines $ l : truncError ls
+          truncError ls = reverse . fst . break (\x -> (map toLower . strip $ x) == "because:") . reverse $ ls
 
 features =
     [("JavaScript Distilled",
@@ -149,7 +161,7 @@ features =
 typeSystemFeatures =
     [("Safety First",
       "Strong, expressive, static type system. No \"any\" type.",
-      "var x = 0;\nvar y = 'a' + x;"),
+      "var x = new Date();\nvar y = x + 1; // this does terrible things"),
      ("Automatically Generic",
       "Infernu finds the most general type, and creates type parameters appropriately.",
       "function f(x) { return x; }"),
@@ -176,3 +188,11 @@ infernu rest =
                                                       )
 
 
+
+
+strip :: String -> String
+strip = Text.unpack . Text.strip . Text.pack
+
+chunks n l = case take n l of
+                 [] -> []
+                 l' -> l' : chunks n (drop n l)
