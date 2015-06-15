@@ -5,14 +5,22 @@ import           Hakyll
 
 
 --------------------------------------------------------------------------------
+
+config = defaultConfiguration { destinationDirectory = "../s" }
+
 main :: IO ()
-main = hakyll $ do
+main = hakyllWith config $ do
     match "images/*" $ do
         route   idRoute
         compile copyFileCompiler
 
     match "less/**" $
         compile getResourceBody
+
+    match "css/fonts/**" $ do
+        route   idRoute
+        -- don't change its content
+        compile copyFileCompiler
 
     create ["css/main.css"] $ do
         route idRoute
