@@ -1,9 +1,38 @@
 @import "bower_components/bootstrap/less/bootstrap.less";
-@import "bower_components/bootstrap/less/theme.less";
+// @import "bower_components/bootstrap/less/theme.less";
 
 @btn-default-bg:                 #ddd;
 
-h1,h2,h3,h4,.navbar-brand {
+@fancy-bg-color-1: fade(#D38312, 20%);
+@fancy-bg-color-2: lighten(@fancy-bg-color-1, 50%);
+
+// @navbar-default-bg: rgb(255,200,0);
+@navbar-inverse-link-color: fade(@fancy-bg-color-1, 100%);
+
+@jumbotron-heading-color: #d38312;
+@jumbotron-bg: @fancy-bg-color-1;
+
+html {
+    // background-color: @fancy-bg-color-2;
+  background:         linear-gradient(180deg,  @fancy-bg-color-1 10%, @fancy-bg-color-2 90%); /* W3C */
+}
+
+body {
+    padding-top: 50px;
+    background-color: transparent;
+
+    // background-color: @navbar-default-bg;
+}
+body > .container{
+    // background-color: rgba(255,255,255,0.7);
+    // padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.container .jumbotron {
+    border-radius: 0;
+}
+h1.huge,.navbar-brand {
     font-family: 'Dosis', sans-serif;
 }
 
@@ -16,7 +45,7 @@ h1.huge { font-size:64px; }
 .footer { }
 
 .features > div {
-    height: 120px;
+    // max-height: 120px;
 }
 
 // .carousel-text {
@@ -34,3 +63,6 @@ h1.huge { font-size:64px; }
         background-position: 10px 5px;
     }
 }
+
+
+//@import (inline) "node_modules/highlight.js/styles/default.css";

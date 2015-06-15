@@ -8,13 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- <link rel="stylesheet" href="styles/main.less.css"/> -->
     <link href="./css/fonts/dosis.css" rel="stylesheet" type="text/css" />
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link href="./css/style.css" rel="stylesheet" type="text/css" />
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="./css/main.css" />
   </head>
   <body>
 
-    <nav class="navbar navbar-default">
+
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -40,11 +41,11 @@
     <div class="container" id="content">
       <!-- <h1>infernu</h1> -->
 
-      <div class="jumbotron">
+      <div class="page-header">
   <a class="pull-right btn-github btn btn-lg btn-default" href="http://github.com/sinelaw/infernu">Source code</a>
   <h1 class="huge">infernu</h1>
 
-  <p>Static type inference for JavaScript.</p>
+  <p class="lead">Static type inference for JavaScript.</p>
 </div>
 
 <div class="container">
@@ -54,17 +55,7 @@
     </div>
   </div>
   <div class="row features">
-    <div class="col-sm-6">
-      <h2>JavaScript Distilled</h2>
-      <p>
-        JavaScript, without the awful parts. Runs as-is, no need for compilation or translation.
-      </p>
-      <!-- <p>infernu is just JavaScript with a few problematic features disabled.</p> -->
-    </div>
-    <div class="col-sm-6">
-      <h2>Type Inference</h2>
-      <p>Static types without annotations. Just write your JavaScript, infernu will fill in the types.</p>
-    </div>
+    <div class="col-sm-6"><h1>JavaScript Distilled</h1><p>JavaScript, without the awful parts. Runs as-is, no need for compilation or translation.</p></div><div class="col-sm-6"><h1>Type Inference</h1><p>Static types without annotations. Just write your JavaScript, infernu will fill in the types.</p></div>
   </div>
   <hr />
   <div class="row">
@@ -73,29 +64,7 @@
     </div>
   </div>
   <div class="row features">
-    <div class="col-sm-6">
-      <h2>Safety First</h2>
-      <p>
-        Strong, expressive, static type system. No "any" type.
-      </p>
-    </div>
-    <div class="col-sm-6">
-      <h2>Automatically Generic</h2>
-      <p>No more <code>Func&lt;T&gt;</code> clutter. Parametric polymorphism (aka "generics"), inferred automatically.
-      </p>
-    </div>
-    <div class="col-sm-6">
-      <h2>Robust Structural Typing</h2>
-      <p>Row-type polymorphism keeps your code generic, while keeping track of the full type structure.
-      </p>
-    </div>
-    <div class="col-sm-6">
-      <h2>Taming <code>this</code></h2>
-      <p>Rather than sweeping <code>this</code> under the rug, it's represented in the type system appropriately.
-      </p>
-    </div>
-
-
+    <div class="col-sm-6"><h1>Safety First</h1><p>Strong, expressive, static type system. No &quot;any&quot; type.</p></div><div class="col-sm-6"><h1>Automatically Generic</h1><p>Infernu finds the most general type, and creates type parameters appropriately.</p><div class="well well-sm"><h5>Example:</h5><div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">f</span>(x) <span class="op">{</span> <span class="cf">return</span> x<span class="op">;</span> <span class="op">}</span></code></pre></div><h5>Inferred type:</h5><div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">f <span class="op">:</span> <span class="va">a</span>.(b <span class="op">-&gt;</span> b)</code></pre></div></div></div><div class="col-sm-6"><h1>Robust Structural Typing</h1><p>Row-type polymorphism keeps your code generic, while keeping track of the full type structure.</p><div class="well well-sm"><h5>Example:</h5><div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">getLength</span>(obj) <span class="op">{</span> <span class="cf">return</span> <span class="va">obj</span>.<span class="at">length</span><span class="op">;</span> <span class="op">}</span></code></pre></div><h5>Inferred type:</h5><div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">getLength <span class="op">:</span> <span class="va">a</span>.( <span class="op">{</span> <span class="dt">length</span><span class="op">:</span> c <span class="op">|</span> b<span class="op">}</span> <span class="op">-&gt;</span> c)</code></pre></div></div></div><div class="col-sm-6"><h1>Taming 'this'</h1><p>Rather than sweeping `this` under the rug, it's represented in the type system appropriately.</p><div class="well well-sm"><h5>Example:</h5><div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript"><span class="kw">function</span> <span class="at">setX</span>(x) <span class="op">{</span> <span class="kw">this</span>.<span class="at">x</span> <span class="op">=</span> x<span class="op">;</span> <span class="op">}</span></code></pre></div><h5>Inferred type:</h5><div class="sourceCode"><pre class="sourceCode javascript"><code class="sourceCode javascript">setX <span class="op">:</span>  <span class="op">{</span> <span class="dt">x</span><span class="op">:</span> a <span class="op">|</span> b<span class="op">}</span>.(a <span class="op">-&gt;</span> Undefined)</code></pre></div></div></div>
   </div>
 </div>
 
@@ -107,6 +76,12 @@
     
 
 
+
     </div>
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- <script src="node_modules/highlight.js/lib/highlight.js"/> -->
+    <!-- <script>hljs.initHighlightingOnLoad();</script> -->
   </body>
 </html>

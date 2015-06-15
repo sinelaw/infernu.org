@@ -7,5 +7,11 @@ executable site
   main-is:          site.hs
   build-depends:    base == 4.*
                   , hakyll == 4.7.*
+                  , highlighting-kate
+                  , pandoc
+                  , blaze-html
+                  , infernu
+                  , ansi-wl-pprint
+                  , language-ecmascript
   ghc-options:      -threaded
   default-language: Haskell2010

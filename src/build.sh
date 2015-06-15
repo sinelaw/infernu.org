@@ -1,3 +1,4 @@
 #!/bin/bash -eu
-ghc --make -threaded site.hs
-./site clean && PATH=$PATH:node_modules/.bin ./site build
+cabal build
+site=./dist/build/site/site
+$site clean && PATH=$PATH:node_modules/.bin $site build

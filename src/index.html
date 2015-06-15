@@ -2,11 +2,11 @@
 title: infernu
 ---
 
-<div class="jumbotron">
+<div class="page-header">
   <a class="pull-right btn-github btn btn-lg btn-default" href="http://github.com/sinelaw/infernu">Source code</a>
   <h1 class="huge">infernu</h1>
 
-  <p>Static type inference for JavaScript.</p>
+  <p class="lead">Static type inference for JavaScript.</p>
 </div>
 
 <div class="container">
@@ -16,17 +16,7 @@ title: infernu
     </div>
   </div>
   <div class="row features">
-    <div class="col-sm-6">
-      <h2>JavaScript Distilled</h2>
-      <p>
-        JavaScript, without the awful parts. Runs as-is, no need for compilation or translation.
-      </p>
-      <!-- <p>infernu is just JavaScript with a few problematic features disabled.</p> -->
-    </div>
-    <div class="col-sm-6">
-      <h2>Type Inference</h2>
-      <p>Static types without annotations. Just write your JavaScript, infernu will fill in the types.</p>
-    </div>
+    $features$
   </div>
   <hr/>
   <div class="row">
@@ -35,31 +25,10 @@ title: infernu
     </div>
   </div>
   <div class="row features">
-    <div class="col-sm-6">
-      <h2>Safety First</h2>
-      <p>
-        Strong, expressive, static type system. No "any" type.
-      </p>
-    </div>
-    <div class="col-sm-6">
-      <h2>Automatically Generic</h2>
-      <p>No more <code>Func&lt;T&gt;</code> clutter. Parametric polymorphism (aka "generics"), inferred automatically.
-      </p>
-    </div>
-    <div class="col-sm-6">
-      <h2>Robust Structural Typing</h2>
-      <p>Row-type polymorphism keeps your code generic, while keeping track of the full type structure.
-      </p>
-    </div>
-    <div class="col-sm-6">
-      <h2>Taming <code>this</code></h2>
-      <p>Rather than sweeping <code>this</code> under the rug, it's represented in the type system appropriately.
-      </p>
-    </div>
-
-
+    $tsFeatures$
   </div>
 </div>
 
 <h2>More Info</h2>
 $partial("templates/post-list.html")$
+
