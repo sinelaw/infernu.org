@@ -14,3 +14,7 @@ cabal.sandbox.config
 *.prof
 *.aux
 *.hp
+node_modules/
+_cache/
+bower_components/
+site
