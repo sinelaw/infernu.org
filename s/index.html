@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- <link rel="stylesheet" href="styles/main.less.css"/> -->
     <link href="./css/fonts/dosis.css" rel="stylesheet" type="text/css" />
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="./css/main.css" />
   </head>
@@ -23,13 +24,12 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">infernu</a>
+          <a class="navbar-brand" href="./">infernu</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="./">Home</a></li>
             <li><a href="./archive.html">Archive</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
@@ -40,20 +40,65 @@
     <div class="container" id="content">
       <!-- <h1>infernu</h1> -->
 
-      <h1 class="huge">infernu</h1>
+      <div class="jumbotron">
+  <a class="pull-right btn-github btn btn-lg btn-default" href="http://github.com/sinelaw/infernu">Source code</a>
+  <h1 class="huge">infernu</h1>
 
-<h2>Static type inference for JavaScript</h2>
+  <p>Static type inference for JavaScript.</p>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>Why infernu?</h3>
+    </div>
+  </div>
+  <div class="row features">
+    <div class="col-sm-6">
+      <h2>JavaScript Distilled</h2>
+      <p>
+        JavaScript, without the awful parts. Runs as-is, no need for compilation or translation.
+      </p>
+      <!-- <p>infernu is just JavaScript with a few problematic features disabled.</p> -->
+    </div>
+    <div class="col-sm-6">
+      <h2>Type Inference</h2>
+      <p>Static types without annotations. Just write your JavaScript, infernu will fill in the types.</p>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-sm-12">
+      <h3>infernu's Type System</h3>
+    </div>
+  </div>
+  <div class="row features">
+    <div class="col-sm-6">
+      <h2>Safety First</h2>
+      <p>
+        Strong, expressive, static type system. No "any" type.
+      </p>
+    </div>
+    <div class="col-sm-6">
+      <h2>Automatically Generic</h2>
+      <p>No more <code>Func&lt;T&gt;</code> clutter. Parametric polymorphism (aka "generics"), inferred automatically.
+      </p>
+    </div>
+    <div class="col-sm-6">
+      <h2>Robust Structural Typing</h2>
+      <p>Row-type polymorphism keeps your code generic, while keeping track of the full type structure.
+      </p>
+    </div>
+    <div class="col-sm-6">
+      <h2>Taming <code>this</code></h2>
+      <p>Rather than sweeping <code>this</code> under the rug, it's represented in the type system appropriately.
+      </p>
+    </div>
 
 
-<h3>Features</h3>
-<ul class="list-group">
-<li class="list-group-item">Full type inference: no type annotations necessary.</li>
-<li class="list-group-item">Parametric polymorphism (aka "generics"), based on Hindley-Milner type inference.</li>
-<li class="list-group-item">Row-type polymorphism, otherwise known as "static duck typing".</li>
-<li class="list-group-item">Simple type classes (which allow for example correct support of JS `+` and `[]` operators).</li>
-<li class="list-group-item">Recursive types for true representation of object-oriented methods.</li>
-<li class="list-group-item">Correct handling of JS's `this` dynamic scoping rules.</li>
-</ul>
+  </div>
+</div>
+
 <h2>More Info</h2>
     
     <h3><a href="./posts/dicussion.html">dicussion</a></h3>

@@ -5,6 +5,10 @@ import           Hakyll
 
 
 --------------------------------------------------------------------------------
+static = do
+    route   idRoute
+    -- don't change its content
+    compile copyFileCompiler
 
 config = defaultConfiguration { destinationDirectory = "../s" }
 
@@ -17,10 +21,8 @@ main = hakyllWith config $ do
     match "less/**" $
         compile getResourceBody
 
-    match "css/fonts/**" $ do
-        route   idRoute
-        -- don't change its content
-        compile copyFileCompiler
+    match "bower_components/bootstrap/dist/**" $ static
+    match "css/fonts/**" $ static
 
     create ["css/main.css"] $ do
         route idRoute

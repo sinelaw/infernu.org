@@ -1,7 +1,5 @@
 # Infernu's Type System
 
-# EARLY DRAFT - Comments welcome (github issues or via other medium)
-
 ## Quick Summary
 
 Infernu's type system is polymorphic and structural. It is built to allow the compiler to infer all types without any annotations by the user.
@@ -17,7 +15,7 @@ The type system features:
 * Polymorphic "methods" are supported, so rows may have rank-2 types.
 * Mutability is not represented in the types, but affects type inference (polymorphism is restricted for mutable variables).
 
-**Note**: Currently, all types are inferred. Support for type annotations for specifically constraining or for documentation is planned. 
+**Note**: Currently, all types are inferred. Support for type annotations for specifically constraining or for documentation is planned.
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -75,7 +73,7 @@ Type variables represent a type that is not fully constrained to any particular 
 
 ### Polymorphic vs. Free Type Variables
 
-There are two cases where type variables are needed: 
+There are two cases where type variables are needed:
 
 * A *polymorphic* type variable is **allowed to vary**. For example, a function that can take any type for its argument and returns a String, can be represented as `a -> String` but the type variable `a` must be allowed to vary. Being "allowed to vary" means: if we use this function in a way that forces `a` to be, say, the type `Number`, doesn't mean that now `a` will always be `Number`: other pieces of code can use our function in a different way, having `a` be whatever other type. A polymorphic type variable such as this `a` is known as *universally quantified* (or "foralled"). The type of that function is really `forall a. a -> String`, or "given any type, call it `a`, this function will have the type `a -> String`" (Currently the pretty-printing mechanism of Infernu doesn't print out the "forall" parts).
 * A *free* (or non-polymorphic) type variable is used when a certain type is not known. If we add more code to the program we may end up determining what the type variable should represent, for example some type variable `b` that appears throughout the code before the change, may turn out to be a `String` due to a new line of code that uses it as such.
@@ -102,13 +100,13 @@ In Infernu, the value restriction isn't enough: unlike ML-family languages, Infe
 * `[a]` - Arrays of items of type `a`
 * `Map a` - Maps from `String` to `a`. Maps correspond to plain JS objects that are used via dynamic keys (e.g. `obj[key] = value`). See the section "row types" for another view of JS objects.
 
-In plain JS, arrays are *heterogeneous* and can contain a mix of values: numbers, booleans, objects, functions, etc. For example, `['a', 3, { b: [] } ]` is a valid JS array. In Infernu, arrays are restricted to be *homogeneous*: all items must be of the same type. 
+In plain JS, arrays are *heterogeneous* and can contain a mix of values: numbers, booleans, objects, functions, etc. For example, `['a', 3, { b: [] } ]` is a valid JS array. In Infernu, arrays are restricted to be *homogeneous*: all items must be of the same type.
 
 Arrays, string maps, and plain strings can all be accessed using the bracket notation in JS. Infernu defines instances of all three types for the `Indexable` type class. More on that later.
 
 ## Functions
 
-Functions are similar to other parameterized types, but are represented slightly differently to support `this` and because they can be constructors (when using the `new` keyword). 
+Functions are similar to other parameterized types, but are represented slightly differently to support `this` and because they can be constructors (when using the `new` keyword).
 
 Notation:
 

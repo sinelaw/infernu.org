@@ -1,6 +1,5 @@
-**Note**: Most of this is outdated and/or unmaintained.
 
-# Discussions
+# Discussion and Notes
 
 ## AST translation to core language: yes or no?
 
