@@ -131,7 +131,7 @@ row es = H.div H.! H.customAttribute "class" "row"
 featureItem (title, description, code) =
     H.div H.! H.customAttribute "class" "col-sm-6"
     $ do
-        H.h1 $ H.string title
+        H.h2 $ H.string title
         H.p $ H.string description
         if code == ""
             then H.string ""
