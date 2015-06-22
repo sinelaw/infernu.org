@@ -132,7 +132,7 @@ featureItem (title, description, code) =
     H.div H.! H.customAttribute "class" "col-sm-6"
     $ do
         H.h2 $ H.string title
-        H.p $ H.string description
+        H.p $ markdownToHTML description
         if code == ""
             then H.string ""
             else H.div -- H.! H.customAttribute "class" "well well-sm"
@@ -168,12 +168,18 @@ typeSystemFeatures =
      ("Robust Structural Typing",
       "Row-type polymorphism keeps your code generic, while keeping track of the full type structure.",
       "function getLength(obj) { return obj.length; }"),
-     ("Read-only properties",
+     ("Read-only Properties",
       "You can't override Math.PI, nor should you try. Infernu distinguishes - at the type level - between getting and setting a property.",
       "Math.PI = 3.2;"),
      ("Taming 'this'",
       "Rather than sweeping `this` under the rug, it's represented in the type system appropriately.",
-      "function setX(x) { this.x = x; }")
+      "function setX(x) { this.x = x; }"),
+     ("Safe Overloading with Type Classes",
+      "`a + b`: are they strings? numbers? Infernu handles such cases safely, without losing information.",
+      "function add(x,y) { return x + y; }\nvar a = add(1,2); var b = add('hello ', 'world');"),
+     ("Safe Indexing",
+      "In `foo[x]`: What is `foo` - an array? A string? A map? Is `x` a number or a string? Infernu safely represents bracket syntax get/set.",
+      "function getAt(obj, ix) { return obj[ix]; }\nvar a = getAt([1,2], 0);\nvar b = getAt('hi', 2);")
     ]
 
 infernu rest =
