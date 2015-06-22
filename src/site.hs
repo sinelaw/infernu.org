@@ -3,6 +3,7 @@
 import           Data.Monoid                     (mappend)
 import           Hakyll
 
+import           Control.Monad                   (forM_)
 import qualified Text.Pandoc                     as P
 
 import qualified Data.Text                       as Text
@@ -128,23 +129,24 @@ markdownToHTML =
 row es = H.div H.! H.customAttribute "class" "row"
          $ mconcat es
 --featureItem :: String -> String -> String -> H.Html
-featureItem (title, description, code) =
+featureItem (title, description, codes) =
     H.div H.! H.customAttribute "class" "col-sm-6"
     $ do
         H.h2 $ H.string title
         H.p $ markdownToHTML description
-        if code == ""
-            then H.string ""
-            else H.div -- H.! H.customAttribute "class" "well well-sm"
-                 $ do
-                     H.h5 $ H.string "Example source:"
-                     markdownToHTML ("```javascript\n" ++ code ++ "\n```")
-                     H.h5 $ H.string "Infernu output:"
-                     -- H.button (H.string "Infernu output")
-                     --     H.! H.customAttribute "data-toggle" "collapse"
-                     --     H.! H.customAttribute "data-target" "#collapseExample"
-                     markdownToHTML ("```javascript\n" ++ (shortError . lines $ infernu code) ++ "\n```")
-                         ---- H.! HA.id "collapseExample"
+        let codesNum = length codes
+        forM_ (zip [1..] codes) $ \(i, code) ->
+            do H.div -- H.! H.customAttribute "class" "well well-sm"
+               $ do
+                   H.hr
+                   H.h5 $ H.string $ "Example" ++ (if codesNum > 1 then " " ++ show i else "") ++ ":"
+                   markdownToHTML ("```javascript\n" ++ code ++ "\n```")
+                   H.h5 $ H.string "Infernu output:"
+                   -- H.button (H.string "Infernu output")
+                   --     H.! H.customAttribute "data-toggle" "collapse"
+                   --     H.! H.customAttribute "data-target" "#collapseExample"
+                   markdownToHTML ("```javascript\n" ++ (shortError . lines $ infernu code) ++ "\n```")
+                       ---- H.! HA.id "collapseExample"
     where shortError [] = ""
           shortError [l] = l
           shortError (l:ls) = strip $ unlines $ l : truncError ls
@@ -153,33 +155,35 @@ featureItem (title, description, code) =
 features =
     [("JavaScript Distilled",
       "JavaScript, without the awful parts. Runs as-is, no need for compilation or translation.",
-      "")
+      [])
     ,("Type Inference",
       "Static types without annotations. Just write your JavaScript, infernu will fill in the types.",
-      "")]
+      [])]
 
 typeSystemFeatures =
     [("Safety First",
       "Strong, expressive, static type system. No \"any\" type.",
-      "var x = new Date();\nvar y = x + 1; // this does terrible things"),
+      ["var x = new Date();\nvar y = x + 1; // this does terrible things"]),
      ("Automatically Generic",
       "Infernu finds the most general type, and creates type parameters appropriately.",
-      "function f(x) { return x; }"),
+      ["function f(x) { return x; }"]),
      ("Robust Structural Typing",
       "Row-type polymorphism keeps your code generic, while keeping track of the full type structure.",
-      "function getLength(obj) { return obj.length; }"),
+      ["function getLength(obj) { return obj.length; }"]),
      ("Read-only Properties",
       "You can't override Math.PI, nor should you try. Infernu distinguishes - at the type level - between getting and setting a property.",
-      "Math.PI = 3.2;"),
+      ["Math.PI = 3.2;"]),
      ("Taming 'this'",
       "Rather than sweeping `this` under the rug, it's represented in the type system appropriately.",
-      "function setX(x) { this.x = x; }"),
+      ["function setX(x) { this.x = x; }\n({ bla : setX, x : 0 }).bla(2); // OK! called with a valid 'this'",
+       "function setX(x) { this.x = x; }\nsetX(2); // oops! setX will get 'undefined' for 'this'."]),
      ("Safe Overloading with Type Classes",
       "`a + b`: are they strings? numbers? Infernu handles such cases safely, without losing information.",
-      "function add(x,y) { return x + y; }\nvar a = add(1,2); var b = add('hello ', 'world');"),
+      ["function add(x,y) { return x + y; }\nvar a = add(1,2); var b = add('hello ', 'world');"]),
      ("Safe Indexing",
       "In `foo[x]`: What is `foo` - an array? A string? A map? Is `x` a number or a string? Infernu safely represents bracket syntax get/set.",
-      "function getAt(obj, ix) { return obj[ix]; }\nvar a = getAt([1,2], 0);\nvar b = getAt('hi', 2);")
+      ["function getAt(obj, ix) { return obj[ix]; }\nvar a = getAt([1,2], 0);\nvar b = getAt('hi', 2);"
+      ,"var x = 'foo';\nx[0] = 't'; // oops... can't set string indexes!"])
     ]
 
 infernu rest =
@@ -203,7 +207,7 @@ truncateLongErrors x = unlines (take limit ls ++ suffix ++ afterLastBecause)
           limit = max 0 $ min 1 (length ls - length afterLastBecause)
           afterLastBecause = take 6 $ reverse $ takeWhile (\x -> (map toLower $ strip x) /= "because:") $ reverse ls
           suffix = if length ls > limit
-                   then ["(..." ++ (if length ls - limit > 10 then "many " else show $ length ls - limit) ++ "more lines)"]
+                   then ["(..." ++ (if length ls - limit > 10 then "many" else show $ length ls - limit) ++ " more lines)"]
                    else []
 
 strip :: String -> String
