@@ -168,17 +168,20 @@ typeSystemFeatures =
      ("Robust Structural Typing",
       "Row-type polymorphism keeps your code generic, while keeping track of the full type structure.",
       "function getLength(obj) { return obj.length; }"),
+     ("Read-only properties",
+      "You can't override Math.PI, nor should you try. Infernu distinguishes - at the type level - between getting and setting a property.",
+      "Math.PI = 3.2;"),
      ("Taming 'this'",
       "Rather than sweeping `this` under the rug, it's represented in the type system appropriately.",
       "function setX(x) { this.x = x; }")
-     ]
+    ]
 
 infernu rest =
     case  runTypeInference . fmap Source . translate . ES3.unJavaScript <$> ES3Parser.parseFromString rest of
-        Left e -> show e
+        Left e -> truncateLongErrors $ show e
         Right res ->
             case getAnnotations <$> res of
-                Left e' -> showDoc $ plain $ pretty e'
+                Left e' ->  truncateLongErrors $ showDoc $ plain $ pretty e'
                 Right [] -> show "There is nothing there."
                 Right xs -> concat . intersperse "\n" $ filterGen xs
                     where filterGen = catMaybes . map (\(Source (GenInfo g n, _), t) ->
@@ -188,7 +191,14 @@ infernu rest =
                                                       )
 
 
-
+truncateLongErrors :: String -> String
+truncateLongErrors x = unlines (take limit ls ++ suffix ++ afterLastBecause)
+    where ls = lines x
+          limit = max 0 $ min 1 (length ls - length afterLastBecause)
+          afterLastBecause = take 6 $ reverse $ takeWhile (\x -> (map toLower $ strip x) /= "because:") $ reverse ls
+          suffix = if length ls > limit
+                   then ["(..." ++ (if length ls - limit > 10 then "many " else show $ length ls - limit) ++ "more lines)"]
+                   else []
 
 strip :: String -> String
 strip = Text.unpack . Text.strip . Text.pack
