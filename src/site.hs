@@ -183,7 +183,11 @@ typeSystemFeatures =
      ("Safe Indexing",
       "In `foo[x]`: What is `foo` - an array? A string? A map? Is `x` a number or a string? Infernu safely represents bracket syntax get/set.",
       ["function getAt(obj, ix) { return obj[ix]; }\nvar a = getAt([1,2], 0);\nvar b = getAt('hi', 2);"
-      ,"var x = 'foo';\nx[0] = 't'; // oops... can't set string indexes!"])
+      ,"var x = 'foo';\nx[0] = 't'; // oops... can't set string indexes!"]),
+     ("Explicit Mutability",
+      "Arrays and objects are always mutable. What about variables? Infernu assumes that modification means you *want* a variable to be mutable.\n"
+      ++ "It gives an explicit `Mut a` type to any variable that is modified after the initial declaration.",
+      ["var x = 0, y = 0;\nx = 1; // x is mutable, y is not - and the type signature now reminds us."])
     ]
 
 infernu rest =
